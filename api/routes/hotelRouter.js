@@ -41,5 +41,17 @@ hotelRouter.delete("/:id", async (req, res) => {
 
 })
 
+// GET HOTEL
+hotelRouter.get("/:id", async (req, res) => {
+
+    try {
+        const hotel = await Hotel.findById(req.params.id);
+        res.status(200).json(hotel);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+
+})
+
 
 export default hotelRouter;
