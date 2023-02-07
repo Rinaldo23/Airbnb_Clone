@@ -53,5 +53,17 @@ hotelRouter.get("/:id", async (req, res) => {
 
 })
 
+// GET ALl HOTELS
+hotelRouter.get("/", async (req, res) => {
+
+    try {
+        const hotels = await Hotel.find();
+        res.status(200).json(hotels);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+
+})
+
 
 export default hotelRouter;
