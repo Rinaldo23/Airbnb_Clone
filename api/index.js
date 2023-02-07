@@ -1,6 +1,8 @@
 import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose";
+import authRouter from "./routes/authRouter.js";
+import hotelRouter from "./routes/hotelRouter.js";
 
 const app = express();
 dotenv.config();
@@ -23,6 +25,11 @@ mongoose.connection.on("disconnected", ()=>{
 mongoose.connection.on("connected", ()=>{
     console.log("MongoDB Connected")
 })
+
+// Creating Middleware for different routes
+app.use(express.json()) //to accept data in json format
+app.use("/api/auth", authRouter);
+app.use("/api/hotels", hotelRouter);
 
 app.listen(8800, () => {
     connect();
