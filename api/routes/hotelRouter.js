@@ -29,5 +29,17 @@ hotelRouter.put("/:id", async (req, res) => {
 
 })
 
+// DELETE HOTEL
+hotelRouter.delete("/:id", async (req, res) => {
+
+    try {
+        const deletedHotel = await Hotel.findByIdAndDelete(req.params.id);
+        res.status(200).json(deletedHotel);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+
+})
+
 
 export default hotelRouter;
