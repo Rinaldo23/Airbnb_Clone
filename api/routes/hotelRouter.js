@@ -18,5 +18,4 @@ hotelRouter.get("/:id", getHotel)
 // GET ALl HOTELS
 hotelRouter.get("/", getHotels)
 
-
 export default hotelRouter;

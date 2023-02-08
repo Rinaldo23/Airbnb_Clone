@@ -6,3 +6,6 @@
     => npm i nodemon
     => npm i dotenv
     => npm i mongoose
+    => npm i bcryptjs
+    => npm i jsonwebtoken
+    => npm i cookie-parser
