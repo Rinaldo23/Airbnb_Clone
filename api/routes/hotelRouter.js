@@ -4,7 +4,7 @@ import Hotel from "../models/hotelModel.js";
 const hotelRouter = express.Router();
 
 // CREATE HOTEL
-hotelRouter.post("/", async (req, res) => {
+hotelRouter.post("/", async (req, res, next) => {
 
     const newHotel = new Hotel(req.body);
 
@@ -12,55 +12,55 @@ hotelRouter.post("/", async (req, res) => {
         const savedHotel = await newHotel.save();
         res.status(200).json(savedHotel);
     } catch (error) {
-        res.status(500).json(error);
+        next(err);
     }
 
 })
 
 // UPDATE HOTEL
-hotelRouter.put("/:id", async (req, res) => {
+hotelRouter.put("/:id", async (req, res, next) => {
 
     try {
         const updatedHotel = await Hotel.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
         res.status(200).json(updatedHotel);
     } catch (error) {
-        res.status(500).json(error);
+        next(err);
     }
 
 })
 
 // DELETE HOTEL
-hotelRouter.delete("/:id", async (req, res) => {
+hotelRouter.delete("/:id", async (req, res, next) => {
 
     try {
         const deletedHotel = await Hotel.findByIdAndDelete(req.params.id);
         res.status(200).json(deletedHotel);
     } catch (error) {
-        res.status(500).json(error);
+        next(err);
     }
 
 })
 
 // GET HOTEL
-hotelRouter.get("/:id", async (req, res) => {
+hotelRouter.get("/:id", async (req, res, next) => {
 
     try {
         const hotel = await Hotel.findById(req.params.id);
         res.status(200).json(hotel);
     } catch (error) {
-        res.status(500).json(error);
+        next(err);
     }
 
 })
 
 // GET ALl HOTELS
-hotelRouter.get("/", async (req, res) => {
+hotelRouter.get("/", async (req, res, next) => {
 
     try {
         const hotels = await Hotel.find();
         res.status(200).json(hotels);
-    } catch (error) {
-        res.status(500).json(error);
+    } catch (err) {
+        next(err);
     }
 
 })
