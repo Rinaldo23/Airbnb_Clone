@@ -1,13 +1,8 @@
 import express from "express"
+import { register } from "../controllers/authController.js";
 
 const authRouter = express.Router();
 
-authRouter.get("/", (req, res)=>{
-    res.send("Hello this is auth endpoint!");
-})
-
-authRouter.get("/register", (req, res)=>{
-    res.send("Hello this is auth register endpoint!")
-})
+authRouter.post("/register", register);
 
 export default authRouter;
