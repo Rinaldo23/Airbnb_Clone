@@ -1,5 +1,5 @@
 import express from "express"
-import { deleteUser, getUser, updateUser } from "../controllers/userController.js";
+import { deleteUser, getUser, getUsers, updateUser } from "../controllers/userController.js";
 // import { verifyAdmin, verifyToken, verifyUser } from "../utils/verification.js";
 
 const userRouter = express.Router();
@@ -12,6 +12,9 @@ userRouter.delete("/:id", deleteUser);
 
 // GET USER
 userRouter.get("/:id", getUser);
+
+// GET ALl USERS
+userRouter.get("/", getUsers);
 
 // userRouter.get("/checkauthentication", verifyToken, (req, res, next) => {
 //     res.send("hello user, you are logged in")
