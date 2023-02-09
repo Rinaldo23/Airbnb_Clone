@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRouter.js";
 import hotelRouter from "./routes/hotelRouter.js";
 import userRouter from "./routes/userRoute.js";
+import roomRouter from "./routes/roomRoute.js";
 
 const app = express();
 dotenv.config();
@@ -34,6 +35,7 @@ app.use(express.json()) //to accept data in json format
 app.use("/api/auth", authRouter);
 app.use("/api/hotels", hotelRouter);
 app.use("/api/users", userRouter);
+app.use("/api/rooms", roomRouter);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;
