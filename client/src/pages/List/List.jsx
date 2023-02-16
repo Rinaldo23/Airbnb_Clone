@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import { format } from "date-fns";
 import { DateRange } from 'react-date-range';
 import SearchItem from '../../components/SearchItem/SearchItem';
+import useFetch from "../../hooks/useFetch"
 
 const List = () => {
 
@@ -16,6 +17,13 @@ const List = () => {
   const [options, setOptions] = useState(location.state.options);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
+
+  const { data, loading, error, reFetch } = useFetch(`http://localhost:8800/api/hotels?city=${destination}&min=${min || 0}&max=${max || 10000}`);
+  console.log(data)
+
+  const handleClick = () => {
+    reFetch();
+  }
 
   return (
     <div>
@@ -96,18 +104,21 @@ const List = () => {
                 </div>
               </div>
             </div>
-            <button>Search</button>
+            <button onClick={handleClick}>Search</button>
           </div>
 
           <div className="listResult">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+            {
+              loading ? "Loading" :
+                <>
+                  {
+                    data.map((item) => (
+                      <SearchItem key={item._id} item={item} />
+                    ))
+                  }
+                </>
+            }
+
           </div>
 
         </div>

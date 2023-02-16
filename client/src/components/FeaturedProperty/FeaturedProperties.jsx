@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch"
 const FeaturedProperties = () => {
 
     const { data, loading, error } = useFetch("http://localhost:8800/api/hotels?limit=4");
-    console.log(data)
+    // console.log(data)
 
     return (
         <div className="fp">
