@@ -1,70 +1,34 @@
 import "./FeaturedProperties.css"
+import useFetch from "../../hooks/useFetch"
 
 const FeaturedProperties = () => {
 
+    const { data, loading, error } = useFetch("http://localhost:8800/api/hotels?limit=4");
+    console.log(data)
+
     return (
-        <div>
-            <div className="fp">
-                <div className="fpItem" >
-                    <img
-                        src="https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o="
-                        alt=""
-                        className="fpImg"
-                    />
-                    <span className="fpName">Taj Hotel</span>
-                    <span className="fpCity">CST</span>
-                    <span className="fpPrice">Starting from $70</span>
-                    <div className="fpRating">
-                        <button>4⭐</button>
-                        <span>Excellent</span>
-                    </div>
-                </div>
-
-                <div className="fpItem" >
-                    <img
-                        src="https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o="
-                        alt=""
-                        className="fpImg"
-                    />
-                    <span className="fpName">Taj Hotel</span>
-                    <span className="fpCity">CST</span>
-                    <span className="fpPrice">Starting from $70</span>
-                    <div className="fpRating">
-                        <button>4⭐</button>
-                        <span>Excellent</span>
-                    </div>
-                </div>
-
-                <div className="fpItem" >
-                    <img
-                        src="https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o="
-                        alt=""
-                        className="fpImg"
-                    />
-                    <span className="fpName">Taj Hotel</span>
-                    <span className="fpCity">CST</span>
-                    <span className="fpPrice">Starting from $70</span>
-                    <div className="fpRating">
-                        <button>4⭐</button>
-                        <span>Excellent</span>
-                    </div>
-                </div>
-
-                <div className="fpItem" >
-                    <img
-                        src="https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o="
-                        alt=""
-                        className="fpImg"
-                    />
-                    <span className="fpName">Taj Hotel</span>
-                    <span className="fpCity">CST</span>
-                    <span className="fpPrice">Starting from $70</span>
-                    <div className="fpRating">
-                        <button>4⭐</button>
-                        <span>Excellent</span>
-                    </div>
-                </div>
-            </div>
+        <div className="fp">
+            {
+                loading ? "Loading Please Wait!!" : <>
+                    {
+                        data.map((item, i) => (
+                            <div className="fpItem" key={i}>
+                                <img
+                                    src={item?.photos[i]}
+                                    className="fpImg"
+                                />
+                                <span className="fpName">{item?.title}</span>
+                                <span className="fpCity">{item?.city}</span>
+                                <span className="fpPrice">Starting from ${item?.cheapestPrice}</span>
+                                <div className="fpRating">
+                                    <button>4⭐</button>
+                                    <span>Excellent</span>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </>
+            }
         </div>
     )
 }
