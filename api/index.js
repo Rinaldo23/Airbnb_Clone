@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import authRouter from "./routes/authRouter.js";
 import hotelRouter from "./routes/hotelRouter.js";
 import userRouter from "./routes/userRoute.js";
@@ -30,6 +31,7 @@ mongoose.connection.on("connected", () => {
 })
 
 // Creating Middleware for different routes
+app.use(cors())
 app.use(cookieParser())
 app.use(express.json()) //to accept data in json format
 app.use("/api/auth", authRouter);
