@@ -1,6 +1,7 @@
 import "./FeaturedProperties.css"
 
 const FeaturedProperties = () => {
+
     return (
         <div>
             <div className="fp">
