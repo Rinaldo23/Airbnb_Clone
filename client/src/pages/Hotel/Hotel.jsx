@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
+import Reserve from "../../components/Reserve/Reserve";
 
 const Hotel = () => {
 
@@ -32,9 +33,10 @@ const Hotel = () => {
   const { data, loading, error } = useFetch(`http://localhost:8800/api/hotels/find/${id}`);
   // console.log(data)
 
-  const { dates, options } = useContext(SearchContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const { dates, options } = useContext(SearchContext);
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
@@ -152,7 +154,7 @@ const Hotel = () => {
         </div>
       </>
       }
-      {/* {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>} */}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
     </div >
   )
 }
