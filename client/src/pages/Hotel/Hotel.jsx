@@ -6,9 +6,10 @@ import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import MailList from '../../components/MailList/MailList';
 import Navbar from '../../components/Navbar/Navbar';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const Hotel = () => {
 
@@ -17,6 +18,7 @@ const Hotel = () => {
   const id = location.pathname.split("/")[2];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const photos = [
     "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
@@ -28,9 +30,11 @@ const Hotel = () => {
   ];
 
   const { data, loading, error } = useFetch(`http://localhost:8800/api/hotels/find/${id}`);
-  console.log(data)
+  // console.log(data)
 
   const { dates, options } = useContext(SearchContext);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
@@ -56,6 +60,14 @@ const Hotel = () => {
     }
 
     setSlideNumber(newSlideNumber);
+  };
+
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -91,7 +103,7 @@ const Hotel = () => {
             </div>
           )}
           <div className="hotelWrapper">
-            <button className="bookNow">Reserve or Book Now!</button>
+            <button onClick={handleClick} className="bookNow">Reserve or Book Now!</button>
             <h1 className="hotelTitle">{data.name}</h1>
             <div className="hotelAddress">
               <FontAwesomeIcon icon={faLocationDot} />
@@ -131,7 +143,7 @@ const Hotel = () => {
                   <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
                   nights)
                 </h2>
-                <button >Reserve or Book Now!</button>
+                <button onClick={handleClick} >Reserve or Book Now!</button>
               </div>
             </div>
           </div>
@@ -140,6 +152,7 @@ const Hotel = () => {
         </div>
       </>
       }
+      {/* {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>} */}
     </div >
   )
 }
