@@ -35,7 +35,7 @@ const Reserve = ({ setOpen, hotelId }) => {
         const isFound = roomNumber.unavailableDates.some((date) =>
             alldates.includes(new Date(date).getTime())
         );
-
+        console.log(isFound);
         return !isFound;
     };
 
@@ -65,6 +65,7 @@ const Reserve = ({ setOpen, hotelId }) => {
             navigate("/");
         } catch (err) { }
     };
+    
     return (
         <div className="reserve">
             <div className="rContainer">
