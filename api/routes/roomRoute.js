@@ -9,6 +9,7 @@ roomRouter.post("/:hotelid", verifyAdmin, createRoom);
 
 // UPDATE ROOM
 roomRouter.put("/:id", verifyAdmin, updateRoom);
+
 roomRouter.put("/availability/:id", updateRoomAvailability);
 
 // // DELETE ROOM
