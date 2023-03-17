@@ -11,6 +11,7 @@ import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/Reserve/Reserve";
+import { Oval } from 'react-loader-spinner'
 
 const Hotel = () => {
 
@@ -22,15 +23,15 @@ const Hotel = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const photos = [
-    "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
-    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-apartments_300/9f60235dc09a3ac3f0a93adbc901c61ecd1ce72e.jpg",
-    "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
-    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_resorts/6f87c6143fbd51a0bb5d15ca3b9cf84211ab0884.jpg",
-    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg",
-    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-chalet_300/8ee014fcc493cb3334e25893a1dee8c6d36ed0ba.jpg",
+    "https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "https://images.pexels.com/photos/210265/pexels-photo-210265.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "https://images.pexels.com/photos/460537/pexels-photo-460537.jpeg?auto=compress&cs=tinysrgb&w=1600",
   ];
 
-  const { data, loading, error } = useFetch(`http://localhost:8800/api/hotels/find/${id}`);
+  const { data, loading, error } = useFetch(`${process.env.REACT_APP_BASE_URL}/hotels/find/${id}`);
   // console.log(data)
 
   const { user } = useContext(AuthContext);
@@ -76,85 +77,98 @@ const Hotel = () => {
     <div>
       <Navbar />
       <Header type="list" />
-      {loading ? "Loading" : <>
-        < div className="hotelContainer">
-          {open && (
-            <div className="slider">
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                className="close"
-                onClick={() => setOpen(false)}
-              />
-              <FontAwesomeIcon
-                icon={faCircleArrowLeft}
-                className="arrow"
-                onClick={() => handleMove("l")}
-              />
-              <div className="sliderWrapper">
+      {
+        loading ? <div className="loaderHotel"><Oval
+          height={50}
+          width={50}
+          color="#4fa94d"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel='oval-loading'
+          secondaryColor="#4fa94d"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+
+        /></div> : <>
+          < div className="hotelContainer">
+            {open && (
+              <div className="slider">
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  className="close"
+                  onClick={() => setOpen(false)}
+                />
+                <FontAwesomeIcon
+                  icon={faCircleArrowLeft}
+                  className="arrow"
+                  onClick={() => handleMove("l")}
+                />
+                {/* <div className="sliderWrapper">
                 <img
                   src={photos[slideNumber]}
                   alt=""
                   className="sliderImg"
                 />
+              </div> */}
+                <FontAwesomeIcon
+                  icon={faCircleArrowRight}
+                  className="arrow"
+                  onClick={() => handleMove("r")}
+                />
               </div>
-              <FontAwesomeIcon
-                icon={faCircleArrowRight}
-                className="arrow"
-                onClick={() => handleMove("r")}
-              />
-            </div>
-          )}
-          <div className="hotelWrapper">
-            <button onClick={handleClick} className="bookNow">Reserve or Book Now!</button>
-            <h1 className="hotelTitle">{data.name}</h1>
-            <div className="hotelAddress">
-              <FontAwesomeIcon icon={faLocationDot} />
-              <span>{data.address}</span>
-            </div>
-            <span className="hotelDistance">
-              Excellent location – {data.distance} from center
-            </span>
-            <span className="hotelPriceHighlight">
-              Book a stay over ${data.cheapestPrice} at this property and get a
-              free airport taxi
-            </span>
-            <div className="hotelImages">
-              {photos?.map((photo, i) => (
-                <div className="hotelImgWrapper" key={i}>
-                  <img
-                    onClick={() => handleOpen(i)}
-                    src={photo}
-                    alt=""
-                    className="hotelImg"
-                  />
+            )}
+            <div className="hotelWrapper">
+              <button onClick={handleClick} className="bookNow">Reserve or Book Now!</button>
+              <h1 className="hotelTitle">{data.name}</h1>
+              <div className="hotelAddress">
+                <FontAwesomeIcon icon={faLocationDot} />
+                <span>{data.address}</span>
+              </div>
+              <span className="hotelDistance">
+                Excellent location – {data.distance} from center
+              </span>
+              <span className="hotelPriceHighlight">
+                Book a stay over ${data.cheapestPrice} at this property and get a
+                free airport taxi
+              </span>
+              <div className="hotelImages">
+                {photos?.map((photo, i) => (
+                  <div className="hotelImgWrapper" key={i}>
+                    <img
+                      onClick={() => handleOpen(i)}
+                      src={photo}
+                      alt=""
+                      className="hotelImg"
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="hotelDetails">
+                <div className="hotelDetailsTexts">
+                  <h1 className="hotelTitle">{data.title}</h1>
+                  <p className="hotelDesc">{data.desc}</p>
                 </div>
-              ))}
-            </div>
-            <div className="hotelDetails">
-              <div className="hotelDetailsTexts">
-                <h1 className="hotelTitle">{data.title}</h1>
-                <p className="hotelDesc">{data.desc}</p>
-              </div>
-              <div className="hotelDetailsPrice">
-                <h1>Perfect for a {days}-night stay!</h1>
-                <span>
-                  Located in the real heart of Krakow, this property has an
-                  excellent location score of 9.8!
-                </span>
-                <h2>
-                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
-                  nights)
-                </h2>
-                <button onClick={handleClick} >Reserve or Book Now!</button>
+                <div className="hotelDetailsPrice">
+                  <h1>Perfect for a {days}-night stay!</h1>
+                  <span>
+                    Located in the real heart of Krakow, this property has an
+                    excellent location score of 9.8!
+                  </span>
+                  <h2>
+                    <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
+                    nights)
+                  </h2>
+                  <button onClick={handleClick} >Reserve or Book Now!</button>
+                </div>
               </div>
             </div>
+            <MailList />
+            <Footer />
           </div>
-          <MailList />
-          <Footer />
-        </div>
-      </>
+        </>
       }
-      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </div >
   )
 }

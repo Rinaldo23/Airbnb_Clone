@@ -1,5 +1,5 @@
 .header {
-    background-color: #003580;
+    background-color: whitesmoke;
     color: white;
     display: flex;
     justify-content: center;
@@ -9,7 +9,7 @@
 .headerContainer {
     width: 100%;
     max-width: 1024px;
-    margin: 20px 0px 100px 0px;
+    margin: 20px 0px 20px 0px;
 }
 
 .headerContainer.listMode {
@@ -19,43 +19,59 @@
 .headerList {
     display: flex;
     gap: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .headerListItem {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: black;
+    scale: 103%;
+    transition: ease-in;
+    border: 1px solid white;
+    background-color: rgb(246, 252, 252);
+    padding: 10px;
+    border-radius: 15px; 
 }
 
-.headerListItem.active {
-    border: 1px solid white;
+.headerListItem:hover {
+    background-color: cadetblue;
+    color: whitesmoke;
+}
+
+/* .headerListItem.active {
+    border: 1px solid black;
+    background-color: rgb(255, 255, 255);
     padding: 10px;
     border-radius: 20px;
-}
+} */
 
 .headerDesc {
     margin: 20px 0px;
 }
 
 .headerBtn {
-    background-color: #0071c2;
+    background-color: cadetblue;
     color: white;
     font-weight: 500;
     border: none;
-    padding: 10px;
+    padding: 10px 13px;
     cursor: pointer;
+    border-radius: 50%;
+    margin-right: 10px;
 }
+
 
 .headerSearch {
     height: 30px;
     background-color: white;
-    border: 3px solid #febb02;
+    border: 2px solid #959595;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 10px 0px;
-    border-radius: 5px;
+    border-radius: 35px;
     position: absolute;
     bottom: -25px;
     width: 100%;
@@ -63,13 +79,14 @@
 }
 
 .headerIcon {
-    color: lightgray;
+    color: rgb(0, 0, 0);
 }
 
 .headerSearchItem {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-left: 30px;
 }
 
 .headerSearchInput {

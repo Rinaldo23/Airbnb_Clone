@@ -14,12 +14,14 @@
     background-color: white;
     padding: 20px;
     position: relative;
+    border-radius: 10px;
 }
 
 .rClose {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 2;
+    right:0;
+    padding-right: 20px;
     cursor: pointer;
 }
 

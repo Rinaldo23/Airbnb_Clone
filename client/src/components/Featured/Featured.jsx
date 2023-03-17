@@ -1,19 +1,32 @@
 import useFetch from "../../hooks/useFetch"
 import "./Featured.css"
+import { Oval } from 'react-loader-spinner'
 
 const Featured = () => {
 
-    const { data, loading, error } = useFetch("http://localhost:8800/api/hotels/countByCity?cities=Juhu,Bandra,CST");
+    const { data, loading, error } = useFetch(`${process.env.REACT_APP_BASE_URL}/hotels/countByCity?cities=Juhu,Bandra,CST`);
     // console.log(data);
 
     return (
         <div className="featured">
             {
-                loading ? "Loading Please Wait!!!"
+                loading ? <Oval
+                    height={50}
+                    width={50}
+                    color="#4fa94d"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel='oval-loading'
+                    secondaryColor="#4fa94d"
+                    strokeWidth={2}
+                    strokeWidthSecondary={2}
+
+                />
                     : <>
                         <div className="featuredItem">
                             <img
-                                src="https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o="
+                                src="https://images.pexels.com/photos/164522/pexels-photo-164522.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
                                 alt=""
                                 className="featuredImg"
                             />
@@ -24,7 +37,7 @@ const Featured = () => {
                         </div>
                         <div className="featuredItem">
                             <img
-                                src="https://cf.bstatic.com/xdata/images/city/max500/690334.webp?k=b99df435f06a15a1568ddd5f55d239507c0156985577681ab91274f917af6dbb&o="
+                                src="https://images.pexels.com/photos/338917/pexels-photo-338917.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
                                 alt=""
                                 className="featuredImg"
                             />

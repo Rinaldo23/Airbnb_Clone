@@ -23,7 +23,7 @@ const Register = () => {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8800/api/auth/register", credentials);
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/register`, credentials);
             navigate("/login")
         } catch (err) {
             dispatch({ type: "REGISTER_FAILURE", payload: err.response.data });

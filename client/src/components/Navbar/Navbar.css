@@ -1,6 +1,6 @@
 .navbar {
     height: 50px;
-    background-color: #003580;
+    background-color: whitesmoke;
     display: flex;
     justify-content: center;
 }
@@ -12,16 +12,29 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 5px;
 }
 
 .logo {
     font-weight: 500;
+    color: cadetblue;
+    font-weight: bold;
 }
 
 .navButton {
     margin-left: 20px;
-    border: none;
-    padding: 5px 10px;
+    /* border: 1px solid black; */
+    padding: 10px 15px;
+    border-radius: 10px;
+    /* background-color: #fff; */
     cursor: pointer;
-    color: #003580;
+    color: cadetblue;;
+    font-weight: bold;
+}
+
+.navButton:hover{
+    scale: 102%;
+    transition: ease-in;
+    color: black;
+    font-weight: bolder;
 }

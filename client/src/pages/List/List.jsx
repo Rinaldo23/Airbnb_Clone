@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { DateRange } from 'react-date-range';
 import SearchItem from '../../components/SearchItem/SearchItem';
 import useFetch from "../../hooks/useFetch"
+import { Oval } from 'react-loader-spinner'
 
 const List = () => {
 
@@ -18,7 +19,7 @@ const List = () => {
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
 
-  const { data, loading, error, reFetch } = useFetch(`http://localhost:8800/api/hotels?city=${destination}&min=${min || 0}&max=${max || 10000}`);
+  const { data, loading, error, reFetch } = useFetch(`${process.env.REACT_APP_BASE_URL}/hotels?city=${destination}&min=${min || 0}&max=${max || 10000}`);
   // console.log(data)
 
   const handleClick = () => {
@@ -109,7 +110,19 @@ const List = () => {
 
           <div className="listResult">
             {
-              loading ? "Loading" :
+              loading ? <div className='loaderFlex'><Oval
+                height={50}
+                width={50}
+                color="#4fa94d"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel='oval-loading'
+                secondaryColor="#4fa94d"
+                strokeWidth={2}
+                strokeWidthSecondary={2}
+
+              /></div> :
                 <>
                   {
                     data.map((item) => (

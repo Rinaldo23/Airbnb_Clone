@@ -1,8 +1,9 @@
 import useFetch from "../../hooks/useFetch";
 import "./PropertyList.css"
+import { Oval } from 'react-loader-spinner'
 
 const PropertyList = () => {
-    const { data, loading, error } = useFetch("http://localhost:8800/api/hotels/countByType");
+    const { data, loading, error } = useFetch(`${process.env.REACT_APP_BASE_URL}/hotels/countByType`);
     // console.log(data)
 
     const images = [
@@ -16,7 +17,19 @@ const PropertyList = () => {
     return (
         <div className="pList">
             {
-                loading ? "Loading please Wait" : <>
+                loading ? <Oval
+                    height={50}
+                    width={50}
+                    color="#4fa94d"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel='oval-loading'
+                    secondaryColor="#4fa94d"
+                    strokeWidth={2}
+                    strokeWidthSecondary={2}
+
+                /> : <>
                     {data && images.map((img, i) => (
                         <div className="pListItem" key={i}>
                             <img
